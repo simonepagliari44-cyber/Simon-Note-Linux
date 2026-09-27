@@ -1,0 +1,1 @@
+/workspaces/Simon-Note-Linux/target/release/simonnote: /workspaces/Simon-Note-Linux/src/document.rs /workspaces/Simon-Note-Linux/src/main.rs /workspaces/Simon-Note-Linux/src/style.css /workspaces/Simon-Note-Linux/src/window.rs

@@ -1,0 +1,45 @@
+.TH SIMONNOTE 1 "2026-09-26" "simonnote 1.0.0" "User Commands"
+.SH NAME
+simonnote \- blocco note veloce a schede per GNOME
+.SH SYNOPSIS
+.B simonnote
+[\fIFILE\fR]...
+.SH DESCRIPTION
+Simon-Note è un blocco note minimale e veloce scritto in Rust con GTK4 e
+LibAdwaita. Apre e modifica file di testo UTF-8, anche di grandi dimensioni,
+con scrolling fluido. Ogni file aperto viene mostrato in una scheda separata.
+.SH OPTIONS
+.TP
+.B \-h, \-\-help
+Mostra le opzioni disponibili e esce.
+.TP
+.B \-V, \-\-version
+Mostra la versione e esce.
+.SH SHORTCUTS
+.TP
+.B Ctrl+T
+Nuova scheda
+.TP
+.B Ctrl+O
+Apri file
+.TP
+.B Ctrl+S
+Salva
+.TP
+.B Ctrl+Shift+S
+Salva come
+.TP
+.B Ctrl+W
+Chiudi la scheda corrente
+.TP
+.B Ctrl+Shift+W
+Chiudi le altre schede
+.TP
+.B Ctrl+Q
+Esci
+.SH NOTES
+Alla chiusura di una scheda o della finestra, se ci sono modifiche non salvate
+viene chiesta conferma. Scegliendo "Salva" il file viene scritto e l'editor
+si chiude.
+.SH SEE ALSO
+.BR gedit (1)
