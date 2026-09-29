@@ -40,14 +40,10 @@ Apre e modifica file UTF-8 anche di grandi dimensioni senza bloccarsi.
 - `Ctrl+Shift+W` → chiudi le altre schede
 - `Ctrl+Q` → esci
 
-## 🔗 Progetto
-
-https://github.com/simonpagl47-cpu/Simon-Note-Linux
-
 ## 📦 Installazione
 
 ```bash
-sudo dpkg -i simonnote_1.0.0-1_amd64.deb
+sudo dpkg -i deb/simonnote_1.0.0-1_amd64.deb
 ```
 
 L'applicazione compare nel menu applicazioni come **Simon-Note**.
@@ -65,11 +61,13 @@ cargo build --release
 
 ```bash
 dpkg-buildpackage -us -uc -b
-# genera ../simonnote_1.0.0-1_amd64.deb
+# genera deb/simonnote_1.0.0-1_amd64.deb
 ```
 
-Il pacchetto installa l'eseguibile in `/usr/bin`, la voce del menu applicazioni,
-l'icona in 8 dimensioni, i metadati AppStream e la pagina di manuale.
+Il pacchetto viene generato direttamente dentro `deb/` (cartella esclusa dal
+controllo versione) e installa l'eseguibile in `/usr/bin`, la voce del menu
+applicazioni, l'icona in 8 dimensioni, i metadati AppStream e la pagina di
+manuale.
 
 ## 🪟 Come funziona il caricamento a finestre
 
@@ -108,6 +106,7 @@ finestra e che l'inserimento di righe non corrompa il resto del file.
 - `icon.png` → icona originale
 - `data/icons/` → icona ritagliata nelle varie dimensioni
 - `debian/` → packaging Debian
+- `deb/` → pacchetti `.deb` generati (non tracciati da git)
 
 ## 📄 Licenza
 

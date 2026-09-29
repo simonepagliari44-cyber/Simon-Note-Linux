@@ -4,7 +4,7 @@ version = "1.0.0"
 edition = "2021"
 description = "A fast, minimal note-taking app for GNOME written in Rust"
 license = "MIT OR Apache-2.0"
-repository = "https://github.com/simonpagl47-cpu/Simon-Note-Linux"
+repository = "https://github.com/simonepagliari44-cyber/Simon-Note-Linux"
 
 [dependencies]
 gtk4 = { version = "0.11", features = ["v4_14"] }

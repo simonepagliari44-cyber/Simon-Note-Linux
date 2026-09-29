@@ -14,6 +14,8 @@ fn print_help() {
          \x20   -h, --help       Mostra questo messaggio\n\
          \x20   -V, --version    Mostra la versione\n\n\
          SCORCIATOIE:\n\
+         \x20   Ctrl+Z           Annulla\n\
+         \x20   Ctrl+Shift+Z     Ripeti\n\
          \x20   Ctrl+T           Nuova scheda\n\
          \x20   Ctrl+N           Nuova scheda\n\
          \x20   Ctrl+O           Apri file\n\
@@ -76,6 +78,8 @@ fn main() {
         app.set_accels_for_action("win.open", &["<primary>o"]);
         app.set_accels_for_action("win.save", &["<primary>s"]);
         app.set_accels_for_action("win.save-as", &["<primary><shift>s"]);
+        app.set_accels_for_action("win.undo", &["<primary>z", "<primary>Z"]);
+        app.set_accels_for_action("win.redo", &["<primary>y", "<primary><shift>z"]);
         app.set_accels_for_action("win.close-tab", &["<primary>w"]);
         app.set_accels_for_action("win.close-others", &["<primary><shift>w"]);
     });

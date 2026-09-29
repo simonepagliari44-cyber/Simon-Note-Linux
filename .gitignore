@@ -1,9 +1,18 @@
-/target
+# Pacchetti .deb generati (finora fuori dal controllo versione)
+/deb/
+
+# build di cargo
+/target/
+
+# artefatti temporanei del packaging
 debian/simonnote/
 debian/.debhelper/
 debian/files
 debian/*.substvars
 debian/*.debhelper.log
+debian/debhelper-build-stamp
+
+# pacchetti e metadati di rilascio
 *.deb
 *.buildinfo
 *.changes

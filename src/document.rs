@@ -116,6 +116,11 @@ impl FileWindow {
         self.edited = true;
     }
 
+    /// Il contenuto è tornato identico a quello su disco.
+    pub fn mark_saved(&mut self) {
+        self.edited = false;
+    }
+
     /// Riposiziona la finestra su `[start, start+count)` rileggendo da disco.
     pub fn set_window(&mut self, start: usize, count: usize) -> std::io::Result<()> {
         self.window_start = start.min(self.total_lines.saturating_sub(1));

@@ -1,7 +1,7 @@
 Source: simonnote
 Section: utils
 Priority: optional
-Maintainer: Simone Pagl <simonepagl47@gmail.com>
+Maintainer: Simone <simonepagliari44@gmail.com>
 Build-Depends: debhelper-compat (= 13),
                cargo (>= 1.70),
                libgtk-4-dev (>= 4.12),
@@ -11,39 +11,41 @@ Build-Depends: debhelper-compat (= 13),
                pkg-config,
                rustc (>= 1.70)
 Standards-Version: 4.6.2
-Homepage: https://github.com/simonpagl47-cpu/Simon-Note-Linux
-Vcs-Git: https://github.com/simonpagl47-cpu/Simon-Note-Linux.git
-Vcs-Browser: https://github.com/simonpagl47-cpu/Simon-Note-Linux
+Homepage: https://github.com/simonepagliari44-cyber/Simon-Note-Linux
+Vcs-Git: https://github.com/simonepagliari44-cyber/Simon-Note-Linux.git
+Vcs-Browser: https://github.com/simonepagliari44-cyber/Simon-Note-Linux
 
 Package: simonnote
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: 🗂️ Blocco note veloce a schede per GNOME
- Simon-Note è un editor di testo scritto in Rust con GTK4 e LibAdwaita, pensato
- per Ubuntu e GNOME. Interfaccia in stile GNOME, apertura e modifica di file
- UTF-8 e caricamento a finestre per file di grandi dimensioni.
+Description: Fast tabbed text editor for GNOME
+ Simon-Note is a text editor written in Rust with GTK4 and LibAdwaita, made for
+ Ubuntu and GNOME. It has a native GNOME look, opens and edits UTF-8 text files
+ and uses windowed loading so that large files stay responsive.
  .
- ✨ Caratteristiche
+ Features:
  .
-  🗂️ Editor a schede: ogni file aperto in una tab separata, con pulsante di
-  chiusura e pallino sulle modifiche.
+  * Tabbed editor: every file opens in its own tab, with a close button and a
+   dot marking unsaved changes.
  .
-  🪟 Caricamento a finestre: i file grandi non vengono caricati interamente in
-  memoria, ma a blocchi di 20.000 righe che scorrono navigando. Su un file da
-  30 MB servono circa 14 MB invece dei 240 MB.
+  * Windowed loading: large files are not loaded entirely into memory, but in
+   blocks of 20,000 lines that slide as you navigate. A 30 MB file needs about
+   14 MB instead of 240 MB.
  .
-  💾 Chiusura sicura: se ci sono modifiche non salvate viene chiesto se
-  salvarle; scegliendo "Salva" il file viene scritto e l'editor si chiude.
+  * Safe closing: if there are unsaved changes you are asked whether to save
+   them; choosing "Save" writes the file and closes the editor.
  .
-  🎨 Stile GNOME nativo: header bar, tema chiaro e scuro, finestra Informazioni.
+  * Native GNOME style: header bar, light and dark theme, About window.
  .
-  ⚡ I/O asincrono: lettura e scrittura in background, interfaccia sempre
-  reattiva.
+  * Asynchronous I/O: reading and writing happen in the background, so the
+   interface always stays responsive.
  .
-  🔎 Scorciatoie da tastiera per tutte le operazioni principali.
+  * Undo and redo (Ctrl+Z / Ctrl+Shift+Z).
  .
-  📂 Apertura di più file da riga di comando: ogni file in una tab separata.
+  * Keyboard shortcuts for every main operation.
  .
-  📊 Barra di stato con righe, dimensione e posizione della finestra attuale.
+  * Several files from the command line: each one opens in its own tab.
  .
-  💬 Notifiche di conferma salvataggio e di errore.
+  * Status bar with lines, size, cursor position and current window.
+ .
+  * Toasts confirming a save or reporting an error.

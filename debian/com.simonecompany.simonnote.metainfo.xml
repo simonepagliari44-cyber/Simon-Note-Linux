@@ -19,17 +19,18 @@
   <launchable type="desktop-id">com.simonecompany.simonnote.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://github.com/simonpagl47-cpu/Simon-Note-Linux/raw/main/screenshot.png</image>
+      <image>https://github.com/simonepagliari44-cyber/Simon-Note-Linux/raw/main/screenshot.png</image>
     </screenshot>
   </screenshots>
   <provides>
     <binary>simonnote</binary>
   </provides>
-  <url type="homepage">https://github.com/simonpagl47-cpu/Simon-Note-Linux</url>
-  <url type="bugtracker">https://github.com/simonpagl47-cpu/Simon-Note-Linux/issues</url>
-  <url type="help">https://github.com/simonpagl47-cpu/Simon-Note-Linux/wiki</url>
-  <url type="donate">https://github.com/simonpagl47-cpu/Simon-Note-Linux</url>
-  <update_contact>simonepagl47@gmail.com</update_contact>
+  <url type="homepage">https://github.com/simonepagliari44-cyber/Simon-Note-Linux</url>
+  <url type="bugtracker">https://github.com/simonepagliari44-cyber/Simon-Note-Linux/issues</url>
+  <url type="help">https://github.com/simonepagliari44-cyber/Simon-Note-Linux/wiki</url>
+  <url type="donate">https://github.com/simonepagliari44-cyber/Simon-Note-Linux</url>
+  <update_contact>simonepagliari44@gmail.com</update_contact>
+  <developer_name>Simone</developer_name>
   <categories>
     <category>Utility</category>
     <category>TextEditor</category>

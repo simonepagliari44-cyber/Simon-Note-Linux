@@ -12,6 +12,23 @@ glib::wrapper! {
                     gtk4::ConstraintTarget, gtk4::Native, gtk4::Root, gtk4::ShortcutManager;
 }
 
+/// Dimensione in byte in forma leggibile.
+fn human_size(bytes: u64) -> String {
+    const KB: f64 = 1024.0;
+    const MB: f64 = 1024.0 * 1024.0;
+    const GB: f64 = 1024.0 * 1024.0 * 1024.0;
+    let b = bytes as f64;
+    if b >= GB {
+        format!("{:.2} GB", b / GB)
+    } else if b >= MB {
+        format!("{:.2} MB", b / MB)
+    } else if b >= KB {
+        format!("{:.1} KB", b / KB)
+    } else {
+        format!("{bytes} B")
+    }
+}
+
 /// Un documento aperto: buffer di testo, vista e percorso su disco.
 pub struct Document {
     pub buffer: gtk4::TextBuffer,
@@ -28,6 +45,9 @@ pub struct Document {
 impl Document {
     fn new() -> Self {
         let buffer = gtk4::TextBuffer::new(None);
+        // Ctrl+Z / Ctrl+Shift+Z: senza questo GTK4 non tiene lo storico
+        buffer.set_enable_undo(true);
+        buffer.set_max_undo_levels(200);
         let view = gtk4::TextView::builder()
             .buffer(&buffer)
             .monospace(true)
@@ -480,6 +500,10 @@ mod imp {
             let menu = gio::Menu::new();
             menu.append(Some("_Nuova scheda"), Some("win.new"));
             menu.append(Some("_Apri…"), Some("win.open"));
+            let s0 = gio::Menu::new();
+            s0.append(Some("_Annulla"), Some("win.undo"));
+            s0.append(Some("_Ripeti"), Some("win.redo"));
+            menu.append_section(None, &s0);
             let s1 = gio::Menu::new();
             s1.append(Some("_Salva"), Some("win.save"));
             s1.append(Some("Salva _come…"), Some("win.save-as"));
@@ -513,16 +537,16 @@ mod imp {
                 about.set_application_name("Simon-Note");
                 about.set_application_icon("com.simonecompany.simonnote");
                 about.set_version(env!("CARGO_PKG_VERSION"));
-                about.set_developer_name("Simone Company");
+                about.set_developer_name("Simone");
                 about.set_comments(
                     "Blocco note veloce a schede per GNOME, scritto in Rust \
                      con GTK4 e LibAdwaita.\nSupporta il caricamento a finestre \
                      per file di grandi dimensioni.",
                 );
-                about.set_website("https://github.com/simonpagl47-cpu/Simon-Note-Linux");
-                about.set_issue_url("https://github.com/simonpagl47-cpu/Simon-Note-Linux/issues");
+                about.set_website("https://github.com/simonepagliari44-cyber/Simon-Note-Linux");
+                about.set_issue_url("https://github.com/simonepagliari44-cyber/Simon-Note-Linux/issues");
                 about.set_license_type(gtk4::License::MitX11);
-                about.set_copyright("© Simone Company");
+                about.set_copyright("© Simone");
                 about.set_transient_for(Some(&o));
                 about.set_modal(true);
                 about.present();
@@ -586,6 +610,35 @@ mod imp {
             a_close_tab.connect_activate(move |_, _| o.close_current_tab());
             obj.add_action(&a_close_tab);
 
+            // NB: il buffer va clonato fuori dal borrow, perché undo() e
+            // redo() emettono "changed" in modo sincrono e l'handler
+            // ha bisogno di docs.borrow_mut().
+            let a_undo = gio::SimpleAction::new("undo", None);
+            let o = obj.clone();
+            a_undo.connect_activate(move |_, _| {
+                let imp = o.imp();
+                let buffer = imp
+                    .selected_index()
+                    .and_then(|i| imp.docs.borrow().get(i).map(|d| d.buffer.clone()));
+                if let Some(b) = buffer {
+                    b.undo();
+                }
+            });
+            obj.add_action(&a_undo);
+
+            let a_redo = gio::SimpleAction::new("redo", None);
+            let o = obj.clone();
+            a_redo.connect_activate(move |_, _| {
+                let imp = o.imp();
+                let buffer = imp
+                    .selected_index()
+                    .and_then(|i| imp.docs.borrow().get(i).map(|d| d.buffer.clone()));
+                if let Some(b) = buffer {
+                    b.redo();
+                }
+            });
+            obj.add_action(&a_redo);
+
             let a_close_others = gio::SimpleAction::new("close-others", None);
             let o = obj.clone();
             a_close_others.connect_activate(move |_, _| o.close_other_tabs());
@@ -619,6 +672,8 @@ mod imp {
                     if windowed {
                         imp.maybe_shift(i);
                     }
+                    imp.refresh_dirty(i);
+                    imp.sync_status_cursor(i);
                 }
                 glib::ControlFlow::Continue
             });
@@ -709,13 +764,10 @@ mod imp {
                 let Some(i) = imp.index_of_view(&v_changed) else {
                     return;
                 };
-                let loading = imp.tab_view.page(&v_changed).is_loading();
                 {
                     let mut docs = imp.docs.borrow_mut();
                     if let Some(doc) = docs.get_mut(i) {
-                        if !loading || doc.path.is_some() {
-                            doc.dirty = true;
-                        }
+                        doc.dirty = true;
                         let mut fw = doc.file.borrow_mut();
                         if let Some(f) = fw.as_mut() {
                             f.mark_edited();
@@ -851,6 +903,7 @@ mod imp {
                         // "changed" viene emesso in modo sincrono
                         imp.applying.set(true);
                         buffer.set_text(&text);
+                        buffer.set_modified(false);
                         imp.cursor_line.set(0);
                         {
                             let mut docs = imp.docs.borrow_mut();
@@ -978,6 +1031,8 @@ mod imp {
             let abs = new_start as i64 + anchor as i64;
             self.shifting.set(true);
             buffer.set_text(&text);
+            // il testo nuovo arriva dal disco: non è una modifica
+            buffer.set_modified(false);
             self.shifting.set(false);
 
             let rel = (abs - new_start as i64).clamp(0, i32::MAX as i64) as i32;
@@ -1004,6 +1059,14 @@ mod imp {
 
         /// Barra di stato, con informazioni sulla finestra se il file è grande.
         pub fn sync_status_windowed(&self, idx: usize) {
+            // posizione del cursore: il mark "insert" segue il cursore
+            let (col, col_off) = {
+                let docs = self.docs.borrow();
+                let Some(d) = docs.get(idx) else { return };
+                let it = d.buffer.iter_at_mark(&d.buffer.get_insert());
+                (it.line() + 1, it.line_offset() + 1)
+            };
+
             let (lines, bytes, windowed, start, count) = {
                 let docs = self.docs.borrow();
                 let Some(d) = docs.get(idx) else { return };
@@ -1027,16 +1090,64 @@ mod imp {
 
             self.status.set_text(&if windowed {
                 format!(
-                    "{} righe · {:.2} MB · finestra {}-{} di {}",
-                    lines,
-                    bytes as f64 / 1_048_576.0,
+                    "Ln {col}, Col {col_off} · finestra {}-{} di {lines} · {}",
                     start + 1,
                     start + count,
-                    lines
+                    human_size(bytes),
                 )
             } else {
-                format!("{} righe · {:.2} MB", lines, bytes as f64 / 1_048_576.0)
+                format!(
+                    "Ln {col}, Col {col_off} · {lines} righe · {}",
+                    human_size(bytes)
+                )
             });
+        }
+
+        /// Aggiorna solo la posizione del cursore nella barra di stato.
+        pub fn sync_status_cursor(&self, idx: usize) {
+            self.sync_status_windowed(idx);
+        }
+
+        /// Ricalcola se il documento è davvero diverso da disco.
+        ///
+        /// Serve perché con l'undo si può tornare esattamente al testo
+        /// originale: in quel caso il pallino deve sparire. Si fa un
+        /// confronto con il contenuto su disco, ma solo qualche volta al
+        /// secondo e non a ogni tasto.
+        pub fn refresh_dirty(&self, idx: usize) {
+            if self.applying.get() || self.shifting.get() {
+                return;
+            }
+            let dirty_now = self.docs.borrow().get(idx).map(|d| d.dirty).unwrap_or(false);
+            if !dirty_now {
+                return;
+            }
+
+            let equals = {
+                let docs = self.docs.borrow();
+                let Some(d) = docs.get(idx) else { return };
+                let cell = &d.file;
+                let fw = cell.borrow();
+                let Some(fw) = fw.as_ref() else {
+                    return;
+                };
+                let lines = document::buffer_lines(&d.buffer);
+                fw.diff_indices(&lines).is_empty()
+            };
+
+            if equals {
+                let mut docs = self.docs.borrow_mut();
+                if let Some(doc) = docs.get_mut(idx) {
+                    doc.dirty = false;
+                    let mut fw = doc.file.borrow_mut();
+                    if let Some(f) = fw.as_mut() {
+                        f.mark_saved();
+                    }
+                }
+                drop(docs);
+                self.sync_page(idx);
+                self.sync_title();
+            }
         }
 
         pub fn sync_status(&self, idx: usize) {

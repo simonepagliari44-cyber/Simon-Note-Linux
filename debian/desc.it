@@ -1,0 +1,32 @@
+Description-it: 🗂️ Blocco note veloce a schede per GNOME
+ Simon-Note è un editor di testo scritto in Rust con GTK4 e LibAdwaita, pensato
+ per Ubuntu e GNOME. Interfaccia in stile GNOME, apertura e modifica di file
+ UTF-8 e caricamento a finestre per file di grandi dimensioni.
+ .
+ ✨ Caratteristiche
+ .
+  🗂️ Editor a schede: ogni file aperto in una tab separata, con pulsante di
+  chiusura e pallino sulle modifiche.
+ .
+  🪟 Caricamento a finestre: i file grandi non vengono caricati interamente in
+  memoria, ma a blocchi di 20.000 righe che scorrono navigando. Su un file da
+  30 MB servono circa 14 MB invece dei 240 MB.
+ .
+  💾 Chiusura sicura: se ci sono modifiche non salvate viene chiesto se
+  salvarle; scegliendo "Salva" il file viene scritto e l'editor si chiude.
+ .
+  🎨 Stile GNOME nativo: header bar, tema chiaro e scuro, finestra Informazioni.
+ .
+  ⚡ I/O asincrono: lettura e scrittura in background, interfaccia sempre
+  reattiva.
+ .
+  ↩️ Annulla e ripeti (Ctrl+Z / Ctrl+Shift+Z).
+ .
+  🔎 Scorciatoie da tastiera per tutte le operazioni principali.
+ .
+  📂 Apertura di più file da riga di comando: ogni file in una tab separata.
+ .
+  📊 Barra di stato con righe, dimensione, posizione del cursore e finestra
+  attuale.
+ .
+  💬 Notifiche di conferma salvataggio e di errore.
