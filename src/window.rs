@@ -519,8 +519,8 @@ mod imp {
                      con GTK4 e LibAdwaita.\nSupporta il caricamento a finestre \
                      per file di grandi dimensioni.",
                 );
-                about.set_website("https://github.com/simonecompany/simonnote");
-                about.set_issue_url("https://github.com/simonecompany/simonnote/issues");
+                about.set_website("https://github.com/simonpagl47-cpu/Simon-Note-Linux");
+                about.set_issue_url("https://github.com/simonpagl47-cpu/Simon-Note-Linux/issues");
                 about.set_license_type(gtk4::License::MitX11);
                 about.set_copyright("© Simone Company");
                 about.set_transient_for(Some(&o));

@@ -14,7 +14,7 @@
 
 ## 🚀 Cos'è
 
-Un editor di testo minimale, veloce e pulito, costruito con **GTK4** e **LibAdwaita**.
+Un editor di testo veloce e pulito, costruito con **GTK4** e **LibAdwaita**.
 Apre e modifica file UTF-8 anche di grandi dimensioni senza bloccarsi.
 
 ## ✨ Caratteristiche
@@ -39,6 +39,10 @@ Apre e modifica file UTF-8 anche di grandi dimensioni senza bloccarsi.
 - `Ctrl+W` → chiudi la scheda
 - `Ctrl+Shift+W` → chiudi le altre schede
 - `Ctrl+Q` → esci
+
+## 🔗 Progetto
+
+https://github.com/simonpagl47-cpu/Simon-Note-Linux
 
 ## 📦 Installazione
 

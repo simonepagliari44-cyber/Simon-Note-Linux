@@ -1,32 +1,49 @@
 Source: simonnote
 Section: utils
 Priority: optional
-Maintainer: Simone Company <simone@simonecompany.com>
+Maintainer: Simone Pagl <simonepagl47@gmail.com>
 Build-Depends: debhelper-compat (= 13),
                cargo (>= 1.70),
-               libgtk-4-dev (>= 4.10),
-               libadwaita-1-dev (>= 1.4),
+               libgtk-4-dev (>= 4.12),
+               libadwaita-1-dev (>= 1.5),
                libglib2.0-dev (>= 2.76),
                libgdk-pixbuf-2.0-dev,
                pkg-config,
                rustc (>= 1.70)
 Standards-Version: 4.6.2
-Homepage: https://github.com/simonecompany/simonnote
-Vcs-Git: https://github.com/simonecompany/simonnote.git
-Vcs-Browser: https://github.com/simonecompany/simonnote
+Homepage: https://github.com/simonpagl47-cpu/Simon-Note-Linux
+Vcs-Git: https://github.com/simonpagl47-cpu/Simon-Note-Linux.git
+Vcs-Browser: https://github.com/simonpagl47-cpu/Simon-Note-Linux
 
 Package: simonnote
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}
-Description: Fast, minimal note-taking app for GNOME
- Simon-Note is a minimal and fast note-taking application written in Rust
- using GTK4 and LibAdwaita. It provides a clean, GNOME-style interface
- with support for editing large text files (20-50 MB) without lag.
+Description: 🗂️ Blocco note veloce a schede per GNOME
+ Simon-Note è un editor di testo scritto in Rust con GTK4 e LibAdwaita, pensato
+ per Ubuntu e GNOME. Interfaccia in stile GNOME, apertura e modifica di file
+ UTF-8 e caricamento a finestre per file di grandi dimensioni.
  .
- Features:
-  * GNOME-style interface with header bar and dark/light theme support
-  * UTF-8 text file editing
-  * Large files handled with asynchronous I/O and smooth scrolling
-  * Keyboard shortcuts for common operations
-  * Undo/redo-free minimal interface focused on speed
-  * Native GNOME integration with LibAdwaita
+ ✨ Caratteristiche
+ .
+  🗂️ Editor a schede: ogni file aperto in una tab separata, con pulsante di
+  chiusura e pallino sulle modifiche.
+ .
+  🪟 Caricamento a finestre: i file grandi non vengono caricati interamente in
+  memoria, ma a blocchi di 20.000 righe che scorrono navigando. Su un file da
+  30 MB servono circa 14 MB invece dei 240 MB.
+ .
+  💾 Chiusura sicura: se ci sono modifiche non salvate viene chiesto se
+  salvarle; scegliendo "Salva" il file viene scritto e l'editor si chiude.
+ .
+  🎨 Stile GNOME nativo: header bar, tema chiaro e scuro, finestra Informazioni.
+ .
+  ⚡ I/O asincrono: lettura e scrittura in background, interfaccia sempre
+  reattiva.
+ .
+  🔎 Scorciatoie da tastiera per tutte le operazioni principali.
+ .
+  📂 Apertura di più file da riga di comando: ogni file in una tab separata.
+ .
+  📊 Barra di stato con righe, dimensione e posizione della finestra attuale.
+ .
+  💬 Notifiche di conferma salvataggio e di errore.

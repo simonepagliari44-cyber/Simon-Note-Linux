@@ -4,9 +4,9 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>MIT OR Apache-2.0</project_license>
   <name>Simon-Note</name>
-  <summary>Fast, minimal note-taking app for GNOME</summary>
+  <summary>🗂️ Blocco note veloce a schede per GNOME</summary>
   <description>
-    <p>Simon-Note is a minimal and fast note-taking application written in Rust using GTK4 and LibAdwaita.</p>
+    <p>Simon-Note è un editor di testo scritto in Rust con GTK4 e LibAdwaita, pensato per Ubuntu e GNOME. Ogni file aperto viene mostrato in una scheda separata e i file grandi vengono caricati a finestre, così la memoria non cresce con la loro dimensione.</p>
     <p>Features:</p>
     <ul>
       <li>GNOME-style interface with header bar and dark/light theme support</li>
@@ -19,17 +19,17 @@
   <launchable type="desktop-id">com.simonecompany.simonnote.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://github.com/simonecompany/simonnote/raw/main/screenshot.png</image>
+      <image>https://github.com/simonpagl47-cpu/Simon-Note-Linux/raw/main/screenshot.png</image>
     </screenshot>
   </screenshots>
   <provides>
     <binary>simonnote</binary>
   </provides>
-  <url type="homepage">https://github.com/simonecompany/simonnote</url>
-  <url type="bugtracker">https://github.com/simonecompany/simonnote/issues</url>
-  <url type="help">https://github.com/simonecompany/simonnote/wiki</url>
-  <url type="donate">https://github.com/sponsors/simonecompany</url>
-  <update_contact>simone@simonecompany.com</update_contact>
+  <url type="homepage">https://github.com/simonpagl47-cpu/Simon-Note-Linux</url>
+  <url type="bugtracker">https://github.com/simonpagl47-cpu/Simon-Note-Linux/issues</url>
+  <url type="help">https://github.com/simonpagl47-cpu/Simon-Note-Linux/wiki</url>
+  <url type="donate">https://github.com/simonpagl47-cpu/Simon-Note-Linux</url>
+  <update_contact>simonepagl47@gmail.com</update_contact>
   <categories>
     <category>Utility</category>
     <category>TextEditor</category>
