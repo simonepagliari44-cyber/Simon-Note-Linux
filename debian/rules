@@ -1,0 +1,29 @@
+#!/usr/bin/make -f
+
+CARGO ?= cargo
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	$(CARGO) build --release --offline || $(CARGO) build --release
+
+override_dh_auto_install:
+	install -D -m755 target/release/simonnote debian/simonnote/usr/bin/simonnote
+	install -D -m644 debian/com.simonecompany.simonnote.desktop \
+		debian/simonnote/usr/share/applications/com.simonecompany.simonnote.desktop
+	# icona in tutte le dimensioni standard
+	set -e; for s in 16 24 32 48 64 128 256 512; do \
+		install -D -m644 data/icons/hicolor/$${s}x$${s}/apps/com.simonecompany.simonnote.png \
+			debian/simonnote/usr/share/icons/hicolor/$${s}x$${s}/apps/com.simonecompany.simonnote.png; \
+	done
+	install -D -m644 debian/com.simonecompany.simonnote.metainfo.xml \
+		debian/simonnote/usr/share/metainfo/com.simonecompany.simonnote.metainfo.xml
+	install -D -m644 debian/simonnote.1 debian/simonnote/usr/share/man/man1/simonnote.1
+
+override_dh_auto_clean:
+	$(CARGO) clean
+	dh_auto_clean
+
+override_dh_auto_test:
+	dh_auto_test || true

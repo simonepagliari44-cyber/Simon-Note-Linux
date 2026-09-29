@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>com.simonecompany.simonnote</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>MIT OR Apache-2.0</project_license>
+  <name>Simon-Note</name>
+  <summary>Fast, minimal note-taking app for GNOME</summary>
+  <description>
+    <p>Simon-Note is a minimal and fast note-taking application written in Rust using GTK4 and LibAdwaita.</p>
+    <p>Features:</p>
+    <ul>
+      <li>GNOME-style interface with header bar and dark/light theme support</li>
+      <li>UTF-8 text file editing</li>
+      <li>Efficient handling of large files (20-50 MB) with smooth scrolling</li>
+      <li>Keyboard shortcuts for common operations</li>
+      <li>Native GNOME integration with LibAdwaita</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">com.simonecompany.simonnote.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://github.com/simonecompany/simonnote/raw/main/screenshot.png</image>
+    </screenshot>
+  </screenshots>
+  <provides>
+    <binary>simonnote</binary>
+  </provides>
+  <url type="homepage">https://github.com/simonecompany/simonnote</url>
+  <url type="bugtracker">https://github.com/simonecompany/simonnote/issues</url>
+  <url type="help">https://github.com/simonecompany/simonnote/wiki</url>
+  <url type="donate">https://github.com/sponsors/simonecompany</url>
+  <update_contact>simone@simonecompany.com</update_contact>
+  <categories>
+    <category>Utility</category>
+    <category>TextEditor</category>
+    <category>GTK</category>
+  </categories>
+  <keywords>
+    <keyword>editor</keyword>
+    <keyword>text</keyword>
+    <keyword>note</keyword>
+    <keyword>markdown</keyword>
+  </keywords>
+  <content_rating type="oars-1.1">
+    <content_attribute id="violence">none</content_attribute>
+    <content_attribute id="sex">none</content_attribute>
+    <content_attribute id="language">none</content_attribute>
+    <content_attribute id="drugs">none</content_attribute>
+  </content_rating>
+</component>

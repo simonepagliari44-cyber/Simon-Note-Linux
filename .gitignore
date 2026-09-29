@@ -1,0 +1,9 @@
+/target
+debian/simonnote/
+debian/.debhelper/
+debian/files
+debian/*.substvars
+debian/*.debhelper.log
+*.deb
+*.buildinfo
+*.changes

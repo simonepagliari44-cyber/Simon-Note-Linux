@@ -1,0 +1,32 @@
+Source: simonnote
+Section: utils
+Priority: optional
+Maintainer: Simone Company <simone@simonecompany.com>
+Build-Depends: debhelper-compat (= 13),
+               cargo (>= 1.70),
+               libgtk-4-dev (>= 4.10),
+               libadwaita-1-dev (>= 1.4),
+               libglib2.0-dev (>= 2.76),
+               libgdk-pixbuf-2.0-dev,
+               pkg-config,
+               rustc (>= 1.70)
+Standards-Version: 4.6.2
+Homepage: https://github.com/simonecompany/simonnote
+Vcs-Git: https://github.com/simonecompany/simonnote.git
+Vcs-Browser: https://github.com/simonecompany/simonnote
+
+Package: simonnote
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: Fast, minimal note-taking app for GNOME
+ Simon-Note is a minimal and fast note-taking application written in Rust
+ using GTK4 and LibAdwaita. It provides a clean, GNOME-style interface
+ with support for editing large text files (20-50 MB) without lag.
+ .
+ Features:
+  * GNOME-style interface with header bar and dark/light theme support
+  * UTF-8 text file editing
+  * Large files handled with asynchronous I/O and smooth scrolling
+  * Keyboard shortcuts for common operations
+  * Undo/redo-free minimal interface focused on speed
+  * Native GNOME integration with LibAdwaita

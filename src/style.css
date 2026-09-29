@@ -1,0 +1,19 @@
+window {
+    background-color: @theme_bg_color;
+}
+
+textview {
+    font-family: monospace;
+    font-size: 11pt;
+    background-color: @theme_base_color;
+    color: @theme_text_color;
+    padding: 6px;
+}
+
+.dim-label {
+    opacity: 0.55;
+}
+
+.caption {
+    font-size: 0.85em;
+}
