@@ -1,0 +1,45 @@
+#!/usr/bin/make -f
+# I pacchetti .deb vengono generati dentro la cartella deb/ del progetto
+# (dh_builddeb --destdir), così restano separati dal sorgente.
+
+CARGO ?= cargo
+DEB_DIR = deb
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	$(CARGO) build --release --offline || $(CARGO) build --release
+
+override_dh_auto_install:
+	install -D -m755 target/release/simonnote debian/simonnote/usr/bin/simonnote
+	install -D -m644 debian/com.simonecompany.simonnote.desktop \
+		debian/simonnote/usr/share/applications/com.simonecompany.simonnote.desktop
+	# icona in tutte le dimensioni standard
+	set -e; for s in 16 24 32 48 64 128 256 512; do \
+		install -D -m644 data/icons/hicolor/$${s}x$${s}/apps/com.simonecompany.simonnote.png \
+			debian/simonnote/usr/share/icons/hicolor/$${s}x$${s}/apps/com.simonecompany.simonnote.png; \
+	done
+	install -D -m644 debian/com.simonecompany.simonnote.metainfo.xml \
+		debian/simonnote/usr/share/metainfo/com.simonecompany.simonnote.metainfo.xml
+	install -D -m644 debian/simonnote.1 debian/simonnote/usr/share/man/man1/simonnote.1
+
+override_dh_builddeb:
+	dh_builddeb --destdir=$(CURDIR)/$(DEB_DIR)
+	# descrizione italiana: dpkg scarta i campi Description-xx, quindi la
+	# iniettiamo a mano nel pacchetto
+	for d in $(CURDIR)/$(DEB_DIR)/simonnote_*.deb; do \
+		sh debian/inject-desc.sh "$$d" debian/desc.it; \
+	done
+	# dpkg-genbuildpackage cerca i .deb nella cartella superiore: crea dei
+	# symlink, cosi il pacchetto resta davvero solo dentro deb/
+	for f in $(CURDIR)/$(DEB_DIR)/*.deb; do \
+		ln -sf "$$f" "$(CURDIR)/../`basename $$f`"; \
+	done
+
+override_dh_auto_clean:
+	$(CARGO) clean
+	dh_auto_clean
+
+override_dh_auto_test:
+	dh_auto_test || true

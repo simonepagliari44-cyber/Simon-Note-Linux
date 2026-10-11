@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Simon-Note
+GenericName=Blocco note
+Comment=Blocco note veloce a schede per GNOME
+Exec=simonnote %F
+Icon=com.simonecompany.simonnote
+Terminal=false
+Categories=Utility;TextEditor;GTK;
+MimeType=text/plain;text/markdown;text/x-markdown;application/json;application/toml;text/x-rust;text/x-log;
+StartupNotify=true
+Keywords=note;blocco note;editor;testo;schede;tab;markdown;plain text;
